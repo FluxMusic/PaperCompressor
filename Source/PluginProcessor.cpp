@@ -94,8 +94,15 @@ void PaperCompressorAudioProcessor::changeProgramName (int index, const juce::St
 //==============================================================================
 void PaperCompressorAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    juce::dsp::ProcessSpec spec;
+    
+    spec.sampleRate = sampleRate;
+    spec.numChannels = getTotalNumInputChannels();
+    spec.maximumBlockSize = samplesPerBlock;
+    
+    inputGain.prepare(spec);
+    compressor.prepare(spec);
+    outputGain.prepare(spec);
 }
 
 void PaperCompressorAudioProcessor::releaseResources()
@@ -144,19 +151,22 @@ void PaperCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
+    
+    juce::dsp::AudioBlock<float> block(buffer);
+    juce::dsp::ProcessContextReplacing<float> context(block);
+    
+    inputGain.setGainDecibels(apvts.getRawParameterValue("InputGain")->load());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
-    }
+    compressor.setThreshold(apvts.getRawParameterValue("Threshold")->load());
+    compressor.setRatio(apvts.getRawParameterValue("Ratio")->load());
+    compressor.setAttack(apvts.getRawParameterValue("Attack")->load());
+    compressor.setRelease(apvts.getRawParameterValue("Release")->load());
+    
+    outputGain.setGainDecibels(apvts.getRawParameterValue("OutputGain")->load());
+    
+    inputGain.process(context);
+    compressor.process(context);
+    outputGain.process(context);
 }
 
 //==============================================================================
