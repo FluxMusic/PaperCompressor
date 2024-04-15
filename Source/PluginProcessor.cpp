@@ -19,7 +19,8 @@ PaperCompressorAudioProcessor::PaperCompressorAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+apvts(*this, nullptr, "Parameters", createParameterLayout())
 #endif
 {
 }
@@ -166,7 +167,8 @@ bool PaperCompressorAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* PaperCompressorAudioProcessor::createEditor()
 {
-    return new PaperCompressorAudioProcessorEditor (*this);
+    //    return new PaperCompressorAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
@@ -188,4 +190,30 @@ void PaperCompressorAudioProcessor::setStateInformation (const void* data, int s
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new PaperCompressorAudioProcessor();
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout PaperCompressorAudioProcessor::createParameterLayout()
+{
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
+    
+    auto gainRange = juce::NormalisableRange<float>(-60.f, 12.f, 0.1f, 1.f);
+    auto thresholdRange = juce::NormalisableRange<float>(-60.f, 0.f, 0.1f, 1.f);
+    auto attackRange = juce::NormalisableRange<float>(1.f, 200.f, 1.f, 1.f);
+    auto releaseRange = juce::NormalisableRange<float>(10.f, 2000.f, 1.f, 1.f);
+    
+    auto choices = std::vector<float>{1, 1.5, 2, 3, 4, 5, 6, 7, 8, 10, 20, 50, 100};
+    juce::StringArray choiceStrings;
+    for (auto choice : choices)
+    {
+        choiceStrings.add(juce::String(choice, 1));
+    }
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("InputGain", 1), "Input Gain", gainRange, 0));
+    layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("Threshold", 2), "Threshold", thresholdRange, 0));
+    layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("Attack", 3), "Attack", attackRange, 10.f));
+    layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("Release", 4), "Release", releaseRange, 200.f));
+    layout.add(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID("Ratio", 5), "Ratio", choiceStrings, 2));
+    layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("OutputGain", 6), "Output Gain", gainRange, 0));
+
+    return layout;
 }

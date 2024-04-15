@@ -55,5 +55,11 @@ public:
 
 private:
     //==============================================================================
+    juce::AudioProcessorValueTreeState apvts;
+    
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+
+    juce::dsp::Compressor<float> compressor;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PaperCompressorAudioProcessor)
 };
