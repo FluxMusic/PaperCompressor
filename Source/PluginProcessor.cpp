@@ -211,21 +211,15 @@ juce::AudioProcessorValueTreeState::ParameterLayout PaperCompressorAudioProcesso
     
     auto gainRange = juce::NormalisableRange<float>(-60.f, 12.f, 0.1f, 1.f);
     auto thresholdRange = juce::NormalisableRange<float>(-60.f, 0.f, 0.1f, 1.f);
+    auto ratioRange = juce::NormalisableRange<float>(1.f, 50.f, 0.01f, 0.25f);
     auto attackRange = juce::NormalisableRange<float>(1.f, 200.f, 1.f, 1.f);
     auto releaseRange = juce::NormalisableRange<float>(10.f, 2000.f, 1.f, 1.f);
-    
-    auto choices = std::vector<float>{1, 1.5, 2, 3, 4, 5, 6, 7, 8, 10, 20, 50, 100};
-    juce::StringArray choiceStrings;
-    for (auto choice : choices)
-    {
-        choiceStrings.add(juce::String(choice, 1));
-    }
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("InputGain", 1), "Input Gain", gainRange, 0));
     layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("Threshold", 2), "Threshold", thresholdRange, 0));
     layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("Attack", 3), "Attack", attackRange, 10.f));
     layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("Release", 4), "Release", releaseRange, 200.f));
-    layout.add(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID("Ratio", 5), "Ratio", choiceStrings, 2));
+    layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("Ratio", 5), "Ratio", ratioRange, 2.f));
     layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("OutputGain", 6), "Output Gain", gainRange, 0));
 
     return layout;
