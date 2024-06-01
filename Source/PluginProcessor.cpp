@@ -23,10 +23,22 @@ PaperCompressorAudioProcessor::PaperCompressorAudioProcessor()
 apvts(*this, nullptr, "Parameters", createParameterLayout())
 #endif
 {
+    apvts.addParameterListener("InputGain", this);
+    apvts.addParameterListener("Threshold", this);
+    apvts.addParameterListener("Attack", this);
+    apvts.addParameterListener("Release", this);
+    apvts.addParameterListener("Ratio", this);
+    apvts.addParameterListener("OutputGain", this);
 }
 
 PaperCompressorAudioProcessor::~PaperCompressorAudioProcessor()
 {
+    apvts.removeParameterListener("InputGain", this);
+    apvts.removeParameterListener("Threshold", this);
+    apvts.removeParameterListener("Attack", this);
+    apvts.removeParameterListener("Release", this);
+    apvts.removeParameterListener("Ratio", this);
+    apvts.removeParameterListener("OutputGain", this);
 }
 
 //==============================================================================
@@ -100,6 +112,15 @@ void PaperCompressorAudioProcessor::prepareToPlay (double sampleRate, int sample
     spec.numChannels = getTotalNumInputChannels();
     spec.maximumBlockSize = samplesPerBlock;
     
+    inputGain.setGainDecibels(apvts.getRawParameterValue("InputGain")->load());
+
+    compressor.setThreshold(apvts.getRawParameterValue("Threshold")->load());
+    compressor.setRatio(apvts.getRawParameterValue("Ratio")->load());
+    compressor.setAttack(apvts.getRawParameterValue("Attack")->load());
+    compressor.setRelease(apvts.getRawParameterValue("Release")->load());
+    
+    outputGain.setGainDecibels(apvts.getRawParameterValue("OutputGain")->load());
+    
     inputGain.prepare(spec);
     compressor.prepare(spec);
     outputGain.prepare(spec);
@@ -154,15 +175,6 @@ void PaperCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     
     juce::dsp::AudioBlock<float> block(buffer);
     juce::dsp::ProcessContextReplacing<float> context(block);
-    
-    inputGain.setGainDecibels(apvts.getRawParameterValue("InputGain")->load());
-
-    compressor.setThreshold(apvts.getRawParameterValue("Threshold")->load());
-    compressor.setRatio(apvts.getRawParameterValue("Ratio")->load());
-    compressor.setAttack(apvts.getRawParameterValue("Attack")->load());
-    compressor.setRelease(apvts.getRawParameterValue("Release")->load());
-    
-    outputGain.setGainDecibels(apvts.getRawParameterValue("OutputGain")->load());
     
     inputGain.process(context);
     compressor.process(context);
@@ -223,4 +235,21 @@ juce::AudioProcessorValueTreeState::ParameterLayout PaperCompressorAudioProcesso
     layout.add(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID("OutputGain", 6), "Output Gain", gainRange, 0));
 
     return layout;
+}
+
+void PaperCompressorAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
+{
+    if (parameterID == "InputGain")
+        inputGain.setGainDecibels(apvts.getRawParameterValue("InputGain")->load());
+    
+    if (parameterID == "Threshold" || parameterID == "Ratio" || parameterID == "Attack" || parameterID == "Release")
+    {
+        compressor.setThreshold(apvts.getRawParameterValue("Threshold")->load());
+        compressor.setRatio(apvts.getRawParameterValue("Ratio")->load());
+        compressor.setAttack(apvts.getRawParameterValue("Attack")->load());
+        compressor.setRelease(apvts.getRawParameterValue("Release")->load());
+    }
+
+    if (parameterID == "OutputGain")
+        outputGain.setGainDecibels(apvts.getRawParameterValue("OutputGain")->load());
 }
