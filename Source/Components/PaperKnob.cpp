@@ -101,7 +101,7 @@ void PaperKnob::paint(juce::Graphics& g)
     }
     g.setColour(juce::Colours::black);
     g.setFont(valueBounds.getHeight() / 1.3);
-//    g.drawFittedText(sliderName, labelBounds, juce::Justification::centred, 1);
+    g.drawFittedText(sliderName, valueBounds, juce::Justification::centred, 1);
 //    
-    g.drawFittedText(static_cast<juce::String>(valueString), valueBounds, juce::Justification::centred, 1);
+//    g.drawFittedText(static_cast<juce::String>(valueString), valueBounds, juce::Justification::centred, 1);
 }
