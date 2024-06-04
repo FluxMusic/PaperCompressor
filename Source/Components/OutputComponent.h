@@ -18,7 +18,7 @@
 class OutputComponent : public juce::Component, public juce::Timer
 {
 public:
-    OutputComponent(PaperEQAudioProcessor& p);
+    OutputComponent(PaperCompressorAudioProcessor& p);
     
     void paint(juce::Graphics& g) override;
     
@@ -27,7 +27,7 @@ public:
     void timerCallback() override;
     
 private:
-    PaperEQAudioProcessor& audioProcessor;
+    PaperCompressorAudioProcessor& audioProcessor;
     
     LevelMeter inputMeter, outputMeter;
     

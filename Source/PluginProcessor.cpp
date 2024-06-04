@@ -121,6 +121,18 @@ void PaperCompressorAudioProcessor::prepareToPlay (double sampleRate, int sample
     
     outputGain.setGainDecibels(apvts.getRawParameterValue("OutputGain")->load());
     
+    inputLevelL.reset(sampleRate, 1.0);
+    inputLevelR.reset(sampleRate, 1.0);
+    
+    inputLevelL.setCurrentAndTargetValue(-100.f);
+    inputLevelR.setCurrentAndTargetValue(-100.f);
+    
+    outputLevelL.reset(sampleRate, 1.0);
+    outputLevelR.reset(sampleRate, 1.0);
+    
+    outputLevelL.setCurrentAndTargetValue(-100.f);
+    outputLevelR.setCurrentAndTargetValue(-100.f);
+    
     inputGain.prepare(spec);
     compressor.prepare(spec);
     outputGain.prepare(spec);
@@ -176,9 +188,45 @@ void PaperCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     juce::dsp::AudioBlock<float> block(buffer);
     juce::dsp::ProcessContextReplacing<float> context(block);
     
+    const auto bufferSize = buffer.getNumSamples();
+    
     inputGain.process(context);
+    
+    inputLevelL.skip(bufferSize);
+    inputLevelR.skip(bufferSize);
+    
+    const auto inputRMSValueL = juce::Decibels::gainToDecibels(buffer.getRMSLevel(0, 0, bufferSize));
+    const auto inputRMSValueR = juce::Decibels::gainToDecibels(buffer.getRMSLevel(1, 0, bufferSize));
+    
+    if (inputRMSValueL < inputLevelL.getCurrentValue())
+        inputLevelL.setTargetValue(inputRMSValueL);
+    else
+        inputLevelL.setCurrentAndTargetValue(inputRMSValueL);
+    
+    if (inputRMSValueR < inputLevelR.getCurrentValue())
+        inputLevelR.setTargetValue(inputRMSValueR);
+    else
+        inputLevelR.setCurrentAndTargetValue(inputRMSValueR);
+    
     compressor.process(context);
+    
     outputGain.process(context);
+    
+    outputLevelL.skip(bufferSize);
+    outputLevelR.skip(bufferSize);
+    
+    const auto outputRMSValueL = juce::Decibels::gainToDecibels(buffer.getRMSLevel(0, 0, bufferSize));
+    const auto outputRMSValueR = juce::Decibels::gainToDecibels(buffer.getRMSLevel(1, 0, bufferSize));
+    
+    if (outputRMSValueL < outputLevelL.getCurrentValue())
+        outputLevelL.setTargetValue(outputRMSValueL);
+    else
+        outputLevelL.setCurrentAndTargetValue(outputRMSValueL);
+    
+    if (outputRMSValueR < outputLevelR.getCurrentValue())
+        outputLevelR.setTargetValue(outputRMSValueR);
+    else
+        outputLevelR.setCurrentAndTargetValue(outputRMSValueR);
 }
 
 //==============================================================================
@@ -252,4 +300,24 @@ void PaperCompressorAudioProcessor::parameterChanged(const juce::String &paramet
 
     if (parameterID == "OutputGain")
         outputGain.setGainDecibels(apvts.getRawParameterValue("OutputGain")->load());
+}
+
+float PaperCompressorAudioProcessor::getRMSInputLevel(const int channel)
+{
+    if (channel == 0)
+        return inputLevelL.getCurrentValue();
+    if (channel == 1)
+        return inputLevelR.getCurrentValue();
+    else
+        return 0;
+}
+
+float PaperCompressorAudioProcessor::getRMSOutputLevel(const int channel)
+{
+    if (channel == 0)
+        return outputLevelL.getCurrentValue();
+    if (channel == 1)
+        return outputLevelR.getCurrentValue();
+    else
+        return 0;
 }

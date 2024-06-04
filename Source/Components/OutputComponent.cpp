@@ -10,12 +10,12 @@
 
 #include "OutputComponent.h"
 
-OutputComponent::OutputComponent(PaperEQAudioProcessor& p)
+OutputComponent::OutputComponent(PaperCompressorAudioProcessor& p)
 : audioProcessor(p),
 inputMeter(false),
 outputMeter(true),
-outputGain(*audioProcessor.getAPVTS().getParameter("OutputGain")),
-outputGainAttachment(audioProcessor.getAPVTS(), "OutputGain", outputGain)
+outputGain(*audioProcessor.getAPVTS().getParameter("Threshold")),
+outputGainAttachment(audioProcessor.getAPVTS(), "Threshold", outputGain)
 {
     addAndMakeVisible(inputMeter);
     addAndMakeVisible(outputMeter);
