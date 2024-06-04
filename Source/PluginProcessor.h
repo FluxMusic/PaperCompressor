@@ -53,6 +53,11 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
+    juce::AudioProcessorValueTreeState& getAPVTS() { return apvts; }
+    
+    float getRMSInputLevel(const int channel);
+    float getRMSOutputLevel(const int channel);
+    
 private:
     //==============================================================================
     juce::AudioProcessorValueTreeState apvts;
@@ -62,6 +67,9 @@ private:
     juce::dsp::Compressor<float> compressor;
     
     juce::dsp::Gain<float> inputGain, outputGain;
+    
+    juce::LinearSmoothedValue<float> inputLevelL, inputLevelR;
+    juce::LinearSmoothedValue<float> outputLevelL, outputLevelR;
     
     void parameterChanged(const juce::String& parameterID, float newValue) override;
     
