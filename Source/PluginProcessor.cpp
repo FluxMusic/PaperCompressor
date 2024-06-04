@@ -189,8 +189,8 @@ bool PaperCompressorAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* PaperCompressorAudioProcessor::createEditor()
 {
-    //    return new PaperCompressorAudioProcessorEditor (*this);
-    return new juce::GenericAudioProcessorEditor(*this);
+        return new PaperCompressorAudioProcessorEditor (*this);
+//    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================

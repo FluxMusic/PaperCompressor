@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="34.00" height="51.00" viewBox="0.00 0.00 34.00 51.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g stroke-linecap="round" transform="translate(-277.00, -746.00)" id="th_knob">
+<path d="M283.38,752.12 L304.38,752.12 L304.38,790.88 L283.38,790.88 L283.38,752.12 Z" fill="none" stroke="rgb(35, 33, 35)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M298.77,771.25 L288.41,771.35" fill="none" stroke="rgb(35, 33, 35)" stroke-width="3.01" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M293.50,756.20 L288.70,762.32" fill="none" stroke="rgb(1, 1, 1)" stroke-width="3.01" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M294.25,756.39 L298.58,762.41" fill="none" stroke="rgb(1, 1, 1)" stroke-width="3.01" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M293.69,786.12 L298.30,780.65" fill="none" stroke="rgb(1, 1, 1)" stroke-width="3.01" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M293.31,785.74 L289.45,780.94" fill="none" stroke="rgb(1, 1, 1)" stroke-width="3.01" stroke-opacity="1.00" stroke-linejoin="round"/>
+</g>
+</svg>

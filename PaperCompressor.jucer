@@ -4,6 +4,37 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="ctTP1A" name="PaperCompressor">
     <GROUP id="{2FBF7DB6-2ADE-E9F4-1B22-204E1C909E5C}" name="Source">
+      <GROUP id="{9FBD6830-3C85-3AB5-08F9-FF1339974D98}" name="Assets">
+        <FILE id="frDmsQ" name="Knob.svg" compile="0" resource="1" file="Source/Assets/Knob.svg"/>
+        <FILE id="iyYH0I" name="OutputGainSlider1.svg" compile="0" resource="1"
+              file="Source/Assets/OutputGainSlider1.svg"/>
+        <FILE id="ZnWBWf" name="OutputGainSliderKnob.svg" compile="0" resource="1"
+              file="Source/Assets/OutputGainSliderKnob.svg"/>
+      </GROUP>
+      <GROUP id="{A42602CF-C2B4-C99C-1003-990490760CCC}" name="Components">
+        <FILE id="DdRkXo" name="LevelMeter.cpp" compile="1" resource="0" file="Source/Components/LevelMeter.cpp"/>
+        <FILE id="YqrcTu" name="LevelMeter.h" compile="0" resource="0" file="Source/Components/LevelMeter.h"/>
+        <FILE id="Y9jFyM" name="OutputComponent.cpp" compile="1" resource="0"
+              file="Source/Components/OutputComponent.cpp"/>
+        <FILE id="Ulz1W4" name="OutputComponent.h" compile="0" resource="0"
+              file="Source/Components/OutputComponent.h"/>
+        <FILE id="iWCOiV" name="PaperKnob.cpp" compile="1" resource="0" file="Source/Components/PaperKnob.cpp"/>
+        <FILE id="qo4Z6J" name="PaperKnob.h" compile="0" resource="0" file="Source/Components/PaperKnob.h"/>
+        <FILE id="RAkSo6" name="PaperOutputGainSlider.cpp" compile="1" resource="0"
+              file="Source/Components/PaperOutputGainSlider.cpp"/>
+        <FILE id="mZXWYu" name="PaperOutputGainSlider.h" compile="0" resource="0"
+              file="Source/Components/PaperOutputGainSlider.h"/>
+        <FILE id="mskugo" name="PeakResetButton.cpp" compile="1" resource="0"
+              file="Source/Components/PeakResetButton.cpp"/>
+        <FILE id="eEufJt" name="PeakResetButton.h" compile="0" resource="0"
+              file="Source/Components/PeakResetButton.h"/>
+      </GROUP>
+      <GROUP id="{DBEC441B-E5A0-345F-61E1-B7A52C9034F3}" name="LookAndFeel">
+        <FILE id="W61zJw" name="PaperLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/LookAndFeel/PaperLookAndFeel.cpp"/>
+        <FILE id="W1wDtI" name="PaperLookAndFeel.h" compile="0" resource="0"
+              file="Source/LookAndFeel/PaperLookAndFeel.h"/>
+      </GROUP>
       <FILE id="kd2pNx" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="SumRrx" name="PluginProcessor.h" compile="0" resource="0"
