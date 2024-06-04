@@ -10,6 +10,8 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "Components/OutputComponent.h"
+#include "Components/PaperKnob.h"
 
 //==============================================================================
 /**
@@ -28,6 +30,12 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     PaperCompressorAudioProcessor& audioProcessor;
+    
+    PaperKnob attackSlider, ratioSlider, releaseSlider;
+    
+    juce::AudioProcessorValueTreeState::SliderAttachment attackSliderAttachment, ratioSliderAttachment, releaseSliderAttachment;
 
+    OutputComponent outputComponent;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PaperCompressorAudioProcessorEditor)
 };
