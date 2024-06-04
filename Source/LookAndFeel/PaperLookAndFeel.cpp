@@ -11,7 +11,6 @@
 #include "PaperLookAndFeel.h"
 #include "../Components/PaperKnob.h"
 #include "../Components/PeakResetButton.h"
-#include "../Components/PaperBypass.h"
 
 void PaperLookAndFeel::drawRotarySlider(juce::Graphics& g, 
                                         int x,
@@ -88,28 +87,4 @@ void PaperLookAndFeel::drawButtonBackground(juce::Graphics& g,
 {
     if (dynamic_cast<PeakResetButton*>(&button))
         g.fillAll(backgroundColour);
-    
-    if (auto toggleButton = dynamic_cast<PaperBypass*>(&button))
-    {
-        auto bounds = button.getLocalBounds().toFloat();
-        bounds = bounds.reduced(bounds.getHeight() / 13);
-        
-        g.setColour(juce::Colours::black);
-        
-        g.drawRoundedRectangle(bounds, bounds.getHeight() / 15, bounds.getHeight() / 18);
-        
-        toggleButton->getToggleState() ? g.setColour(juce::Colours::grey) : g.setColour(juce::Colours::floralwhite);
-        
-        g.fillRect(bounds);
-        
-        auto insideBounds = bounds.reduced(bounds.getHeight() / 13);
-        
-        g.setColour(juce::Colours::black);
-        
-        g.drawRoundedRectangle(insideBounds, bounds.getHeight() / 20, bounds.getHeight() / 18);
-        
-        toggleButton->getToggleState() ? g.setColour(juce::Colours::black.withAlpha(0.8f)) : g.setColour(juce::Colours::floralwhite);
-        
-        g.fillRect(insideBounds);
-    }
 }
