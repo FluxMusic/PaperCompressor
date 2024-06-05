@@ -89,5 +89,6 @@ void PaperCompressorAudioProcessorEditor::resized()
     ratioSlider.setBounds(sliderBounds);
     releaseSlider.setBounds(releaseBounds);
     
+    bounds.removeFromTop(space);
     ratioDisplay.setBounds(bounds);
 }

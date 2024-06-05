@@ -13,12 +13,10 @@
 RatioDisplay::RatioDisplay(PaperCompressorAudioProcessor& p)
 : audioProcessor(p)
 {
-    
 }
 
 RatioDisplay::~RatioDisplay()
 {
-    
 }
 
 void RatioDisplay::paint(juce::Graphics& g)
@@ -26,8 +24,12 @@ void RatioDisplay::paint(juce::Graphics& g)
     const auto fullBounds = getLocalBounds();
     const auto size = juce::jmin(fullBounds.getHeight(), fullBounds.getWidth());
     auto bounds = juce::Rectangle<float>(size, size);
-    bounds = bounds.reduced(size / 50);
     bounds.setCentre(fullBounds.getCentre().toFloat());
+    g.setColour(juce::Colours::black.withAlpha(0.9f));
+    g.fillRect(bounds.reduced(size / 75));
+    bounds = bounds.reduced(size / 50);
+    g.setColour(juce::Colours::floralwhite);
+    g.fillRect(bounds);
     const auto thumbSize = bounds.getHeight() / 30;
     auto thresholdThumb = juce::Rectangle<float>(thumbSize, thumbSize);
     auto ratioThumb = thresholdThumb;
@@ -70,7 +72,6 @@ void RatioDisplay::paint(juce::Graphics& g)
     ratioThumb.setCentre(ratioBounds.getBottomRight());
     
     g.setColour(juce::Colours::black);
-    g.drawRect(bounds);
     g.strokePath(ratioPath, juce::PathStrokeType(2.f));
     ratioPath.lineTo(bounds.getBottomRight());
     ratioPath.closeSubPath();
