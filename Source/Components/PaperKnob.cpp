@@ -67,11 +67,7 @@ void PaperKnob::paint(juce::Graphics& g)
     
     const auto range = getRange();
     
-    if (param->getParameterID().equalsIgnoreCase("LowCutFreq")
-        || param->getParameterID().equalsIgnoreCase("LowShelfFreq")
-        || param->getParameterID().equalsIgnoreCase("PeakFreq")
-        || param->getParameterID().equalsIgnoreCase("HighShelfFreq")
-        || param->getParameterID().equalsIgnoreCase("HighCutFreq"))
+    if (param->getParameterID().equalsIgnoreCase("Ratio"))
     {
         getLookAndFeel().drawRotarySlider(g,
                                           bounds.getX(),
