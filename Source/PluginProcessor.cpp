@@ -269,7 +269,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PaperCompressorAudioProcesso
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
     
-    auto gainRange = juce::NormalisableRange<float>(-60.f, 12.f, 0.1f, 1.f);
+    auto gainRange = juce::NormalisableRange<float>(-18.f, 18.f, 0.1f, 1.f);
     auto thresholdRange = juce::NormalisableRange<float>(-60.f, 0.f, 0.1f, 1.f);
     auto ratioRange = juce::NormalisableRange<float>(1.f, 50.f, 0.01f, 0.25f);
     auto attackRange = juce::NormalisableRange<float>(1.f, 200.f, 1.f, 1.f);
