@@ -28,6 +28,9 @@
               file="Source/Components/PeakResetButton.cpp"/>
         <FILE id="eEufJt" name="PeakResetButton.h" compile="0" resource="0"
               file="Source/Components/PeakResetButton.h"/>
+        <FILE id="W8NWeC" name="RatioDisplay.cpp" compile="1" resource="0"
+              file="Source/Components/RatioDisplay.cpp"/>
+        <FILE id="pjpIkb" name="RatioDisplay.h" compile="0" resource="0" file="Source/Components/RatioDisplay.h"/>
       </GROUP>
       <GROUP id="{DBEC441B-E5A0-345F-61E1-B7A52C9034F3}" name="LookAndFeel">
         <FILE id="W61zJw" name="PaperLookAndFeel.cpp" compile="1" resource="0"

@@ -12,6 +12,7 @@
 #include "PluginProcessor.h"
 #include "Components/OutputComponent.h"
 #include "Components/PaperKnob.h"
+#include "Components/RatioDisplay.h"
 
 //==============================================================================
 /**
@@ -34,6 +35,8 @@ private:
     PaperKnob attackSlider, ratioSlider, releaseSlider;
     
     juce::AudioProcessorValueTreeState::SliderAttachment attackSliderAttachment, ratioSliderAttachment, releaseSliderAttachment;
+    
+    RatioDisplay ratioDisplay;
 
     OutputComponent outputComponent;
     

@@ -18,6 +18,7 @@ releaseSlider(*audioProcessor.getAPVTS().getParameter("Release"), "Release"),
 attackSliderAttachment(audioProcessor.getAPVTS(), "Attack", attackSlider),
 ratioSliderAttachment(audioProcessor.getAPVTS(), "Ratio", ratioSlider),
 releaseSliderAttachment(audioProcessor.getAPVTS(), "Release", releaseSlider),
+ratioDisplay(p),
 outputComponent(p)
 {
     addAndMakeVisible(outputComponent);
@@ -25,10 +26,12 @@ outputComponent(p)
     addAndMakeVisible(ratioSlider);
     addAndMakeVisible(releaseSlider);
     
-    setSize (500, 330);
+    addAndMakeVisible(ratioDisplay);
+    
+    setSize (450, 330);
     setResizable(true, true);
-    getConstrainer()->setFixedAspectRatio(1.52f);
-    setResizeLimits(500, 330, 1000, 660);
+    getConstrainer()->setFixedAspectRatio(1.36f);
+    setResizeLimits(450, 330, 900, 660);
 }
 
 PaperCompressorAudioProcessorEditor::~PaperCompressorAudioProcessorEditor()
@@ -43,13 +46,16 @@ void PaperCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     auto bounds = getLocalBounds().toFloat();
     bounds = bounds.reduced(bounds.getWidth() / 60);
     
-    g.setColour(juce::Colours::black);
-    g.drawRoundedRectangle(bounds, 5.f, bounds.getHeight() / 130);
-    
     auto outputBounds = bounds.removeFromRight(bounds.getWidth() * 0.38);
     
-    g.setColour(juce::Colours::purple);
+    g.setColour(juce::Colours::floralwhite.withBrightness(0.95));
     g.fillRect(outputBounds);
+    
+    auto titleBounds = outputBounds.removeFromTop(outputBounds.getHeight() / 10);
+    
+    g.setColour(juce::Colours::black);
+    g.setFont(titleBounds.getHeight() / 1.3);
+    g.drawFittedText("PaperComp", titleBounds.toNearestInt(), juce::Justification::centred, 1);
     
     auto sliderBounds = bounds.removeFromBottom(bounds.getHeight() / 3);
     auto releaseBounds = sliderBounds.removeFromRight(sliderBounds.getWidth() / 3);
@@ -61,18 +67,26 @@ void PaperCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     g.fillRect(ratioBounds);
     g.setColour(juce::Colours::yellowgreen);
     g.fillRect(releaseBounds);
-
-    g.setColour (juce::Colours::black);
-    g.setFont (15.0f);
-//    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    
+    bounds = getLocalBounds().toFloat();
+    bounds = bounds.reduced(bounds.getWidth() / 60);
+    
+    g.setColour(juce::Colours::black);
+    g.drawRoundedRectangle(bounds, 5.f, bounds.getHeight() / 130);
 }
 
 void PaperCompressorAudioProcessorEditor::resized()
 {
     auto bounds = getLocalBounds();
     bounds = bounds.reduced(bounds.getWidth() / 60);
+    const auto space = bounds.getHeight() / 50;
     
     auto outputBounds = bounds.removeFromRight(bounds.getWidth() * 0.38);
+    outputBounds.removeFromTop(outputBounds.getHeight() / 10);
+    outputBounds.removeFromRight(bounds.getHeight() / 130);
+    outputBounds.removeFromBottom(bounds.getHeight() / 130);
+    outputBounds.removeFromRight(space);
+    outputBounds.removeFromLeft(space);
     outputComponent.setBounds(outputBounds);
     
     auto sliderBounds = bounds.removeFromBottom(bounds.getHeight() / 3);
@@ -82,4 +96,6 @@ void PaperCompressorAudioProcessorEditor::resized()
     attackSlider.setBounds(sliderBounds);
     ratioSlider.setBounds(ratioBounds);
     releaseSlider.setBounds(releaseBounds);
+    
+    ratioDisplay.setBounds(bounds);
 }
