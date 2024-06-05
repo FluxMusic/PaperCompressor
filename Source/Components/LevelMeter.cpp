@@ -84,7 +84,7 @@ void LevelMeter::paint(juce::Graphics& g)
     
     juce::Array<float> rmsDisplay
     {
-        -100.f, -60.f, -40.f, -30.f, -20.f, -12.f, -6.f, -3.f, 0.f
+        -100.f, -60.f, -40.f, -30.f, -20.f, -12.f, -6.f, 0.f
     };
     
     g.setColour(juce::Colours::grey.withAlpha(0.8f));
