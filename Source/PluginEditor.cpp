@@ -90,11 +90,14 @@ void PaperCompressorAudioProcessorEditor::resized()
     outputComponent.setBounds(outputBounds);
     
     auto sliderBounds = bounds.removeFromBottom(bounds.getHeight() / 3);
-    auto releaseBounds = sliderBounds.removeFromRight(sliderBounds.getWidth() / 3);
-    auto ratioBounds = sliderBounds.removeFromRight(sliderBounds.getWidth() / 2);
+    sliderBounds.removeFromLeft(space * 4);
+    sliderBounds.removeFromRight(space * 4);
+    auto smallSliderRemoval = sliderBounds.getWidth() / 3.5;
+    auto attackBounds = sliderBounds.removeFromLeft(smallSliderRemoval);
+    auto releaseBounds = sliderBounds.removeFromRight(smallSliderRemoval);
     
-    attackSlider.setBounds(sliderBounds);
-    ratioSlider.setBounds(ratioBounds);
+    attackSlider.setBounds(attackBounds);
+    ratioSlider.setBounds(sliderBounds);
     releaseSlider.setBounds(releaseBounds);
     
     ratioDisplay.setBounds(bounds);
