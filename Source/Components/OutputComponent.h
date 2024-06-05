@@ -14,6 +14,7 @@
 #include "../PluginProcessor.h"
 #include "LevelMeter.h"
 #include "PaperOutputGainSlider.h"
+#include "PaperKnob.h"
 
 class OutputComponent : public juce::Component, public juce::Timer
 {
@@ -31,6 +32,7 @@ private:
     
     LevelMeter inputMeter, outputMeter;
     
-    PaperOutputGainSlider outputGain;
-    juce::AudioProcessorValueTreeState::SliderAttachment outputGainAttachment;
+    PaperOutputGainSlider threshold;
+    PaperKnob inputGain, outputGain;
+    juce::AudioProcessorValueTreeState::SliderAttachment thresholdAttachment, inputGainAttachment, outputGainAttachment;
 };

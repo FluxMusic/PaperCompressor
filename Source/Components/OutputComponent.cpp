@@ -14,14 +14,21 @@ OutputComponent::OutputComponent(PaperCompressorAudioProcessor& p)
 : audioProcessor(p),
 inputMeter(false),
 outputMeter(true),
-outputGain(*audioProcessor.getAPVTS().getParameter("Threshold")),
-outputGainAttachment(audioProcessor.getAPVTS(), "Threshold", outputGain)
+threshold(*audioProcessor.getAPVTS().getParameter("Threshold")),
+inputGain(*audioProcessor.getAPVTS().getParameter("InputGain"), "In Gain"),
+outputGain(*audioProcessor.getAPVTS().getParameter("OutputGain"), "Out Gain"),
+thresholdAttachment(audioProcessor.getAPVTS(), "Threshold", threshold),
+inputGainAttachment(audioProcessor.getAPVTS(), "InputGain", inputGain),
+outputGainAttachment(audioProcessor.getAPVTS(), "OutputGain", outputGain)
 {
     addAndMakeVisible(inputMeter);
     addAndMakeVisible(outputMeter);
     
+    addAndMakeVisible(threshold);
+    threshold.setSliderSnapsToMousePosition(false);
+    
+    addAndMakeVisible(inputGain);
     addAndMakeVisible(outputGain);
-    outputGain.setSliderSnapsToMousePosition(false);
     
     startTimerHz(60);
     
@@ -44,7 +51,8 @@ void OutputComponent::paint(juce::Graphics& g)
 {
     g.fillAll(juce::Colours::floralwhite.withBrightness(0.95));
     auto bounds = getLocalBounds();
-    auto descBounds = bounds.removeFromBottom(bounds.getHeight() / 8);
+    auto descBounds = bounds.removeFromBottom(bounds.getHeight() / 4);
+    descBounds.removeFromBottom(descBounds.getHeight() * 0.66);
     
     auto inputBounds = descBounds.removeFromLeft(descBounds.getWidth() / 3);
     auto outputBounds = descBounds.removeFromRight(descBounds.getWidth() / 2);
@@ -58,13 +66,16 @@ void OutputComponent::paint(juce::Graphics& g)
     g.setFont(descBounds.getHeight() / 2.4);
     g.drawFittedText("IN", inputBounds, juce::Justification::centred, 1);
     g.drawFittedText("OUT", outputBounds, juce::Justification::centred, 1);
-    g.drawFittedText("GAIN", descBounds, juce::Justification::centred, 1);
+    g.drawFittedText("THRESHOLD", descBounds, juce::Justification::centred, 1);
 }
 
 void OutputComponent::resized()
 {
     auto bounds = getLocalBounds();
-    bounds.removeFromBottom(bounds.getHeight() / 8);
+    auto sliderBounds = bounds.removeFromBottom(bounds.getHeight() / 4);
+    sliderBounds.removeFromTop(sliderBounds.getHeight() * 0.33);
+    auto inputGainSliderBounds = sliderBounds.removeFromLeft(sliderBounds.getWidth() / 3);
+    auto outputGainSliderBounds = sliderBounds.removeFromRight(sliderBounds.getWidth() / 2);
     auto inputMeterBounds = bounds.removeFromLeft(bounds.getWidth() / 3);
     auto outputMeterBounds = bounds.removeFromRight(bounds.getWidth() / 2);
     
@@ -74,5 +85,8 @@ void OutputComponent::resized()
     auto space = bounds.getWidth() / 20;
     bounds.removeFromLeft(space);
     bounds.removeFromRight(space);
-    outputGain.setBounds(bounds);
+    threshold.setBounds(bounds);
+    
+    inputGain.setBounds(inputGainSliderBounds);
+    outputGain.setBounds(outputGainSliderBounds);
 }
