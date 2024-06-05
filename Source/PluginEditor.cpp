@@ -28,10 +28,10 @@ outputComponent(p)
     
     addAndMakeVisible(ratioDisplay);
     
-    setSize (450, 330);
+    setSize (675, 450);
     setResizable(true, true);
-    getConstrainer()->setFixedAspectRatio(1.36f);
-    setResizeLimits(450, 330, 900, 660);
+    getConstrainer()->setFixedAspectRatio(1.5f);
+    setResizeLimits(675, 450, 1350, 900);
 }
 
 PaperCompressorAudioProcessorEditor::~PaperCompressorAudioProcessorEditor()
@@ -56,17 +56,6 @@ void PaperCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     g.setColour(juce::Colours::black);
     g.setFont(titleBounds.getHeight() / 1.3);
     g.drawFittedText("PaperComp", titleBounds.toNearestInt(), juce::Justification::centred, 1);
-    
-    auto sliderBounds = bounds.removeFromBottom(bounds.getHeight() / 3);
-    auto releaseBounds = sliderBounds.removeFromRight(sliderBounds.getWidth() / 3);
-    auto ratioBounds = sliderBounds.removeFromRight(sliderBounds.getWidth() / 2);
-    
-    g.setColour(juce::Colours::red);
-    g.fillRect(sliderBounds);
-    g.setColour(juce::Colours::orange);
-    g.fillRect(ratioBounds);
-    g.setColour(juce::Colours::yellowgreen);
-    g.fillRect(releaseBounds);
     
     bounds = getLocalBounds().toFloat();
     bounds = bounds.reduced(bounds.getWidth() / 60);
