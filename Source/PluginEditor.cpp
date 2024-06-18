@@ -62,6 +62,8 @@ void PaperCompressorAudioProcessorEditor::paint (juce::Graphics& g)
     
     g.setColour(juce::Colours::black);
     g.drawRoundedRectangle(bounds, 5.f, bounds.getHeight() / 130);
+    
+    ratioDisplay.repaint();
 }
 
 void PaperCompressorAudioProcessorEditor::resized()
