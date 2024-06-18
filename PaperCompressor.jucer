@@ -6,10 +6,10 @@
     <GROUP id="{2FBF7DB6-2ADE-E9F4-1B22-204E1C909E5C}" name="Source">
       <GROUP id="{9FBD6830-3C85-3AB5-08F9-FF1339974D98}" name="Assets">
         <FILE id="frDmsQ" name="Knob.svg" compile="0" resource="1" file="Source/Assets/Knob.svg"/>
-        <FILE id="iyYH0I" name="OutputGainSlider1.svg" compile="0" resource="1"
-              file="Source/Assets/OutputGainSlider1.svg"/>
-        <FILE id="ZnWBWf" name="OutputGainSliderKnob.svg" compile="0" resource="1"
-              file="Source/Assets/OutputGainSliderKnob.svg"/>
+        <FILE id="BBFuer" name="ThresholdSlider.svg" compile="0" resource="1"
+              file="Source/Assets/ThresholdSlider.svg"/>
+        <FILE id="b2V26x" name="ThresholdSliderKnob.svg" compile="0" resource="1"
+              file="Source/Assets/ThresholdSliderKnob.svg"/>
       </GROUP>
       <GROUP id="{A42602CF-C2B4-C99C-1003-990490760CCC}" name="Components">
         <FILE id="DdRkXo" name="LevelMeter.cpp" compile="1" resource="0" file="Source/Components/LevelMeter.cpp"/>

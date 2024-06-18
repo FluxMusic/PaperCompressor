@@ -47,7 +47,7 @@ void PaperOutputGainSlider::paint(juce::Graphics& g)
     
     const auto range = getRange();
     
-    const auto minSliderPos = bounds.getHeight() - bounds.getHeight() / 50;
+    const auto minSliderPos = bounds.getHeight() - bounds.getHeight() / 38;
     const auto maxSliderPos = bounds.getY() + bounds.getHeight() / 15;
     
     setMouseDragSensitivity(minSliderPos - maxSliderPos);

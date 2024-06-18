@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="1920.00" height="1080.00" viewBox="0.00 0.00 1920.00 1080.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g stroke-linecap="round" id="th_slider_1">
+<path d="M371.82,655.00 L371.18,884.00" fill="none" stroke="rgb(35, 33, 35)" stroke-width="8.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M363.50,713.00 L380.50,713.00" fill="none" stroke="rgb(35, 33, 35)" stroke-width="4.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M363.00,830.00 L381.50,829.50" fill="none" stroke="rgb(35, 33, 35)" stroke-width="4.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M358.50,769.53 L383.52,769.20" fill="none" stroke="rgb(35, 33, 35)" stroke-width="4.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M375.50,641.06 Q379.62,642.62 382.19,646.31 Q384.75,650.00 384.81,653.56 Q384.88,657.12 384.81,768.94 Q384.75,880.75 384.44,884.88 Q384.12,889.00 381.06,892.62 Q378.00,896.25 374.88,897.44 Q371.75,898.62 367.69,897.12 Q363.62,895.62 361.25,892.50 Q358.88,889.38 358.50,886.19 Q358.12,883.00 358.19,879.62 Q358.25,876.25 358.44,766.44 Q358.62,656.62 359.00,652.44 Q359.38,648.25 362.00,645.38 Q364.62,642.50 368.00,641.00 Q371.38,639.50 375.50,641.06 Z" fill="none" stroke="rgb(35, 33, 35)" stroke-width="4.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+</g>
+</svg>
