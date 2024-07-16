@@ -72,7 +72,7 @@ void RatioDisplay::paint(juce::Graphics& g)
     ratioThumb.setCentre(ratioBounds.getBottomRight());
     
     g.setColour(juce::Colours::black);
-    g.strokePath(ratioPath, juce::PathStrokeType(2.f));
+    g.strokePath(ratioPath, juce::PathStrokeType(bounds.getHeight() / 150));
     ratioPath.lineTo(bounds.getBottomRight());
     ratioPath.closeSubPath();
     g.setColour(juce::Colours::black.withAlpha(0.2f));
