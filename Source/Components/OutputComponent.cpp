@@ -30,7 +30,7 @@ outputGainAttachment(audioProcessor.getAPVTS(), "OutputGain", outputGain)
     addAndMakeVisible(inputGain);
     addAndMakeVisible(outputGain);
     
-    startTimerHz(60);
+    startTimerHz(30);
     
     inputMeter.repaint();
     outputMeter.repaint();
@@ -49,6 +49,8 @@ void OutputComponent::timerCallback()
 
 void OutputComponent::paint(juce::Graphics& g)
 {
+    DBG("OutputComponent::paint");
+    
     g.fillAll(juce::Colours::floralwhite.withBrightness(0.95));
     auto bounds = getLocalBounds();
     auto descBounds = bounds.removeFromBottom(bounds.getHeight() / 4);

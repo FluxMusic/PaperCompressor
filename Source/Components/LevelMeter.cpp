@@ -21,7 +21,7 @@ void SingleMeter::paint(juce::Graphics &g)
     g.fillRoundedRectangle(bounds, 5.f);
     
     g.setGradientFill(juce::ColourGradient{juce::Colours::black.withAlpha(0.3f), bounds.getWidth() / 2, bounds.getBottom(), juce::Colours::black.withAlpha(0.8f), bounds.getWidth() / 2, bounds.getY(), false});
-    auto fill = juce::jmap(level, -60.f, 0.f, bounds.getY(), bounds.getBottom());
+    auto fill = juce::jmap(level, -100.f, 0.f, bounds.getY(), bounds.getBottom());
     g.fillRoundedRectangle(bounds.removeFromBottom(fill), 5.f);
 }
 
@@ -50,12 +50,9 @@ LevelMeter::LevelMeter(bool gainScaleLeft)
 
 void LevelMeter::paint(juce::Graphics& g)
 {
-    meterL.repaint();
-    meterR.repaint();
-    
     const auto fullBounds = getLocalBounds();
     auto bounds = fullBounds;
-    auto levelBounds = bounds.removeFromBottom(bounds.getHeight() / 18);
+    bounds.removeFromBottom(bounds.getHeight() / 18);
     auto scaleBounds = bounds;
     
     scaleBounds.removeFromTop(scaleBounds.getHeight() / 15);
@@ -119,27 +116,6 @@ void LevelMeter::paint(juce::Graphics& g)
             g.drawFittedText(text, r, juce::Justification::left, 1);
         }
     }
-    
-    juce::String text = juce::String::formatted("%.1f", oldLevel);
-    
-    auto newLevel = getPeakLevel();
-    
-    auto font = juce::Font(levelBounds.getHeight() / 1.6);
-    
-    rmsDB.setFont(font);
-    
-    rmsDB.setText(juce::String::formatted("%.1f", newLevel), juce::dontSendNotification);
-    
-    if (newLevel == -100.f)
-    {
-        rmsDB.setText("-Inf", juce::dontSendNotification);
-    }
-    
-    if (newLevel > oldLevel)
-    {
-        peakDB.setButtonText(juce::String::formatted("%.1f", newLevel));
-        oldLevel = newLevel;
-    }
 }
 
 void LevelMeter::resized()
@@ -171,10 +147,45 @@ void LevelMeter::resized()
     rmsDB.setBounds(levelBounds);
 }
 
+void LevelMeter::timerCallback()
+{
+    juce::String text = juce::String::formatted("%.1f", oldLevel);
+    
+    auto newLevel = getPeakLevel();
+    
+    auto font = juce::Font(juce::FontOptions(rmsDB.getBounds().getHeight() / 1.6));
+    
+    rmsDB.setFont(font);
+    
+    juce::String newText = (newLevel == -100.f) ? "-Inf" : juce::String::formatted("%.1f", newLevel);
+    
+    if (newText != rmsText)
+    {
+        rmsText = newText;
+        rmsDB.setText(rmsText, juce::dontSendNotification);
+    }
+    
+    if (newLevel > oldLevel)
+    {
+        peakDB.setButtonText(juce::String::formatted("%.1f", newLevel));
+        oldLevel = newLevel;
+    }
+}
+
 void LevelMeter::setLevels(float leftChannelValue, float rightChannelValue)
 {
-    meterL.setLevel(leftChannelValue);
-    meterR.setLevel(rightChannelValue);
+    float newL = leftChannelValue;
+    float newR = rightChannelValue;
+    
+    if (newL != meterL.getLevel())
+    {
+        meterL.setLevel(newL);
+        meterL.repaint();
+    }
+    if (newR != meterR.getLevel()) {
+        meterR.setLevel(newR);
+        meterR.repaint();
+    }
 }
 
 float LevelMeter::getPeakLevel()

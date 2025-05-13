@@ -37,6 +37,8 @@ public:
     
     void resized() override;
     
+    void timerCallback();
+    
     void setLevels(float leftChannelValue, float rightChannelValue);
     
     float getPeakLevel();
@@ -48,6 +50,8 @@ private:
     float oldLevel { -100.f };
     
     PeakResetButton peakDB { "-Inf" };
+    
+    juce::String rmsText { "-Inf" };
     
     juce::Label rmsDB { "-Inf" };
 };
